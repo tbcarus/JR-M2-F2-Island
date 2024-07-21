@@ -1,0 +1,131 @@
+config:
+  WOLF:
+    weight: 50
+    maxPerCell: 30
+    speed: 3
+    fullFood: 8
+    hungerToDeath: 5
+    offspring: 1
+    type: WOLF
+  BOA:
+    weight: 15
+    maxPerCell: 30
+    speed: 1
+    fullFood: 3
+    hungerToDeath: 10
+    offspring: 1
+    type: BOA
+  FOX:
+    weight: 8
+    maxPerCell: 30
+    speed: 2
+    fullFood: 2
+    hungerToDeath: 5
+    offspring: 2
+    type: FOX
+  BEAR:
+    weight: 500
+    maxPerCell: 5
+    speed: 2
+    fullFood: 80
+    hungerToDeath: 8
+    offspring: 1
+    type: BEAR
+  EAGLE:
+    weight: 6
+    maxPerCell: 20
+    speed: 3
+    fullFood: 1
+    hungerToDeath: 3
+    offspring: 3
+    type: EAGLE
+  HORSE:
+    weight: 400
+    maxPerCell: 20
+    speed: 4
+    fullFood: 60
+    hungerToDeath: 5
+    offspring: 1
+    type: HORSE
+  DEER:
+    weight: 300
+    maxPerCell: 20
+    speed: 4
+    fullFood: 50
+    hungerToDeath: 5
+    offspring: 1
+    type: DEER
+  RABBIT:
+    weight: 2
+    maxPerCell: 150
+    speed: 2
+    fullFood: 0.45
+    hungerToDeath: 2
+    offspring: 5
+    type: RABBIT
+  MOUSE:
+    weight: 0.05
+    maxPerCell: 500
+    speed: 1
+    fullFood: 0.01
+    hungerToDeath: 2
+    offspring: 10
+    type: MOUSE
+  GOAT:
+    weight: 60
+    maxPerCell: 140
+    speed: 3
+    fullFood: 10
+    hungerToDeath: 5
+    offspring: 2
+    type: GOAT
+  SHEEP:
+    weight: 70
+    maxPerCell: 140
+    speed: 3
+    fullFood: 15
+    hungerToDeath: 5
+    offspring: 2
+    type: SHEEP
+  BOAR:
+    weight: 400
+    maxPerCell: 50
+    speed: 2
+    fullFood: 50
+    hungerToDeath: 5
+    offspring: 3
+    type: BOAR
+  BUFFALO:
+    weight: 700
+    maxPerCell: 10
+    speed: 3
+    fullFood: 100
+    hungerToDeath: 7
+    offspring: 1
+    type: BUFFALO
+  DUCK:
+    weight: 1
+    maxPerCell: 200
+    speed: 4
+    fullFood: 0.15
+    hungerToDeath: 2
+    offspring: 5
+    type: DUCK
+  CATERPILLAR:
+    weight: 0.01
+    maxPerCell: 1000
+    speed: 0
+    fullFood: 0.002
+    hungerToDeath: 2
+    offspring: 100
+    type: CATERPILLAR
+  GRASS:
+    weight: 1
+    maxPerCell: 200
+    speed: 0
+    fullFood: 0
+    hungerToDeath: 5
+    offspring: 20
+    type: GRASS
+
+
