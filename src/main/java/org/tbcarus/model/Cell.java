@@ -1,18 +1,21 @@
 package org.tbcarus.model;
 
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.tbcarus.model.biota.Biota;
+import org.tbcarus.model.biota.BiotaType;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@Data
+@Getter
+@Setter
 public class Cell {
 
     int x;
     int y;
-    List<Biota> biotaList = new CopyOnWriteArrayList<Biota>();
+    List<Biota> biotaList = new CopyOnWriteArrayList<>();
 
     public Cell(int y, int x) {
         this.y = y;
@@ -21,5 +24,13 @@ public class Cell {
 
     public void addBiota(Biota b) {
         biotaList.add(b);
+    }
+
+    public void removeBiota(Biota b) {
+        biotaList.remove(b);
+    }
+
+    public long getCountByType(BiotaType type) {
+        return biotaList.stream().filter(b -> b.getType().equals(type)).count();
     }
 }
