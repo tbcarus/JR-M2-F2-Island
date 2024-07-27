@@ -6,6 +6,7 @@ import org.tbcarus.model.Cell;
 import org.tbcarus.model.DirectionType;
 import org.tbcarus.model.Island;
 import org.tbcarus.model.biota.animal.Animal;
+import org.tbcarus.util.Viewer;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,14 +16,16 @@ public class MovementService {
     public void move(Island island, Cell cell, Animal animal) {
         if (animal.getHungerToDeath() == 0) {
             cell.removeBiota(animal);
+            Viewer.view("Животное " + animal.getType() + " в {"
+                    + cell.getX() + "," + cell.getY() + "} умерло от голода.", false);
             return;
         }
         Cell cellTo = runToCell(island, cell, animal);
         moveAnimal(cell, cellTo, animal);
         animal.setHungerToDeath(animal.getHungerToDeath() - 1);
-        System.out.println("Животное " + animal.getType() + " переместилось из {"
+        Viewer.view("Животное " + animal.getType() + " переместилось из {"
                 + cell.getX() + "," + cell.getY() + "} в {"
-                + cellTo.getX() + "," + cellTo.getY() + "}");
+                + cellTo.getX() + "," + cellTo.getY() + "}", false);
     }
 
     private boolean shouldTakeStep() {

@@ -6,8 +6,10 @@ import lombok.Setter;
 import org.tbcarus.model.biota.Biota;
 import org.tbcarus.model.biota.BiotaType;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,7 +32,27 @@ public class Cell {
         biotaList.remove(b);
     }
 
+    public Map<BiotaType, List<Biota>> getBiotaMap() {
+        Map<BiotaType, List<Biota>> map = new HashMap<>();
+        for (BiotaType type : BiotaType.values()) {
+            List<Biota> list = biotaList.stream().filter(b -> b.getType() == type).toList();
+            map.put(type, new ArrayList<>(list));
+        }
+        return map;
+//        return biotaList.stream().collect(Collectors.groupingBy(Biota::getType, Collectors.toList()));
+    }
+
     public long getCountByType(BiotaType type) {
         return biotaList.stream().filter(b -> b.getType().equals(type)).count();
+    }
+
+    public Biota getRandomBiota() {
+        if (biotaList.isEmpty()) {
+            return null;
+        }
+        if (biotaList.size() == 1) {
+            return biotaList.get(0);
+        }
+        return biotaList.get(ThreadLocalRandom.current().nextInt(biotaList.size() - 1));
     }
 }
