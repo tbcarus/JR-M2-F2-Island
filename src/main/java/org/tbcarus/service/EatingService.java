@@ -3,6 +3,7 @@ package org.tbcarus.service;
 import org.tbcarus.config.BiotaConfig;
 import org.tbcarus.config.Configs;
 import org.tbcarus.config.EatingConfig;
+import org.tbcarus.config.SimConfig;
 import org.tbcarus.model.Cell;
 import org.tbcarus.model.biota.Biota;
 import org.tbcarus.model.biota.animal.Animal;
@@ -12,12 +13,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EatingService {
 
-    EatingConfig eatingConfig = Configs.getConfigs().getEatingConfig();
-    BiotaConfig biotaConfig = Configs.getConfigs().getBiotaConfig();
+    private final EatingConfig eatingConfig = Configs.getConfigs().getEatingConfig();
+    private final BiotaConfig biotaConfig = Configs.getConfigs().getBiotaConfig();
+    private final SimConfig simConfig = Configs.getConfigs().getSimConfig();
 
     public void eating(Cell cell, Animal hunter) {
         int food = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < simConfig.getNmeetingBiotasPerStep(); i++) {
             Biota prey = cell.getRandomBiota();
             if (prey != null) {
                 if (isEaten(hunter, prey)) {

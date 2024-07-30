@@ -12,6 +12,9 @@ import org.tbcarus.service.MovementService;
 import org.tbcarus.service.ReproducrionService;
 
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class IslandSimulator {
 
@@ -24,32 +27,29 @@ public class IslandSimulator {
     public void simulate() {
         Island island = islandGenerator.generate();
 
-        int day = 1;
-        while (true) {
-            System.out.println("День: " + day);
+        Runnable viewTask = () -> {
             for (Map.Entry<BiotaType, Long> entry : island.getAllBiotaCount().entrySet()) {
                 System.out.println(entry.getKey() + ": " + entry.getValue());
             }
             System.out.println();
+        };
+        ScheduledExecutorService viewExecutorService = Executors.newSingleThreadScheduledExecutor();
+        viewExecutorService.scheduleWithFixedDelay(viewTask, 0, 5, TimeUnit.SECONDS);
 
-            for (Cell[] cells : island.getCells()) {
+        ScheduledExecutorService actionExecutorService = Executors.newScheduledThreadPool(Math.max(Runtime.getRuntime().availableProcessors() / 2, 2));
+        for (Cell[] cells : island.getCells()) {
+            Runnable actionTask = () -> {
                 for (Cell cell : cells) {
                     for (Biota biota : cell.getBiotaList()) {
                         if (biota instanceof Animal animal) {
                             movementService.move(island, cell, animal);
                             eatingService.eating(cell, animal);
                         }
-
                     }
                     reproducrionService.reproduce(cell);
                 }
-            }
-
-            day++;
+            };
+            actionExecutorService.scheduleWithFixedDelay(actionTask, 0, 1, TimeUnit.SECONDS);
         }
     }
-
-
-    int x = 5;
-
 }

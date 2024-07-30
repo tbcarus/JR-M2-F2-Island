@@ -2,6 +2,7 @@ package org.tbcarus.service;
 
 import org.tbcarus.config.BiotaDto;
 import org.tbcarus.config.Configs;
+import org.tbcarus.config.SimConfig;
 import org.tbcarus.model.Cell;
 import org.tbcarus.model.biota.Biota;
 import org.tbcarus.model.biota.BiotaType;
@@ -13,10 +14,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ReproducrionService {
 
-    ThreadLocalRandom random = ThreadLocalRandom.current();
-    BiotasFactory factory = new BiotasFactory();
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
+    private final BiotasFactory factory = new BiotasFactory();
+    private final SimConfig simConfig = Configs.getConfigs().getSimConfig();
 
-    public void reproduce (Cell cell) {
+    public void reproduce(Cell cell) {
         for (BiotaType type : BiotaType.values()) {
             long currentCount = cell.getCountByType(type);
             BiotaDto dto = Configs.getConfigs().getBiotaConfig().getConfig().get(type);
@@ -25,15 +27,13 @@ public class ReproducrionService {
                     break;
                 }
 
-                if (random.nextBoolean()) { // для упрощения модели это условие аналогично двум животным на больших выборках данных
-                    if (random.nextInt(0, 100) <= 80) {
-                        for (int i = 0; i < b.getOffspring(); i++) {
-                            cell.addBiota(factory.getBiota(type, dto));
-                            currentCount++;
-                            Viewer.view("Животное " + b.getType() + " размножилось.", false);
-                            if (currentCount >= b.getMaxPerCell()) {
-                                break;
-                            }
+                if (random.nextBoolean() && random.nextInt(0, 100) <= simConfig.getReproduceChance()) { // для упрощения модели это условие аналогично двум животным на больших выборках данных
+                    for (int i = 0; i < b.getOffspring(); i++) {
+                        cell.addBiota(factory.getBiota(type, dto));
+                        currentCount++;
+                        Viewer.view("Животное " + b.getType() + " размножилось.", false);
+                        if (currentCount >= b.getMaxPerCell()) {
+                            break;
                         }
                     }
                 }

@@ -2,6 +2,7 @@ package org.tbcarus.service;
 
 import org.tbcarus.config.Configs;
 import org.tbcarus.config.IslandConfig;
+import org.tbcarus.config.SimConfig;
 import org.tbcarus.model.Cell;
 import org.tbcarus.model.DirectionType;
 import org.tbcarus.model.Island;
@@ -11,7 +12,8 @@ import org.tbcarus.util.Viewer;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MovementService {
-    IslandConfig islandConfig = Configs.getConfigs().getIslandConfig();
+    private final IslandConfig islandConfig = Configs.getConfigs().getIslandConfig();
+    private final SimConfig simConfig = Configs.getConfigs().getSimConfig();
 
     public void move(Island island, Cell cell, Animal animal) {
         if (animal.getHungerToDeath() == 0) {
@@ -29,7 +31,7 @@ public class MovementService {
     }
 
     private boolean shouldTakeStep() {
-        return ThreadLocalRandom.current().nextInt(0, 100) <= 80;
+        return ThreadLocalRandom.current().nextInt(0, 100) <= simConfig.getStepChance();
     }
 
     private Cell runToCell(Island island, Cell cell, Animal animal) {

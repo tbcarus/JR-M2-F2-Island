@@ -1,6 +1,6 @@
 # Шанс того, что животное сделает шаг
 stepChance: 80
 # Количество встречающейся биоты за ход
-nMeetingBiotasPerStep: 10
+nmeetingBiotasPerStep: 10
 # Шанс на размножение
 reproduceChance: 80

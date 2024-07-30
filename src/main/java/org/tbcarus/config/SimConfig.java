@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SimConfig {
     int stepChance;
-    int nMeetingBiotasPerStep;
+    int nmeetingBiotasPerStep;
     int reproduceChance;
 
 }
